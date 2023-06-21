@@ -1,10 +1,16 @@
-# Python 3 server example
+# author manfred scheucher <scheucher@math.tu-berlin.de>
+# based on Python 3 server example
+
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
 import generate
 
 hostName = "localhost"
 serverPort = 8080
+
+from datetime import datetime
+
+
 
 class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -13,7 +19,11 @@ class MyServer(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(bytes("<html><head><title>compact arxiv</title></head>", "utf-8"))
         self.wfile.write(bytes("<body>", "utf-8"))
-        self.wfile.write(bytes(py_compact_arxiv.perform(), "utf-8"))
+        now = datetime.now()
+        date = now.strftime("%d/%m/%Y %H:%M:%S")
+        self.wfile.write(bytes(f"date: {date}<br>", "utf-8"))
+
+        self.wfile.write(bytes(generate.perform(), "utf-8"))
         self.wfile.write(bytes("</body></html>", "utf-8"))
 
 if __name__ == "__main__":        

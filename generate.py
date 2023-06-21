@@ -1,3 +1,4 @@
+# author manfred scheucher <scheucher@math.tu-berlin.de>
 
 import requests
 import requests_cache
@@ -10,7 +11,6 @@ def parse(content):
 	soup = BeautifulSoup(content, 'html.parser')
 	#dlpage = soup.find("div",{"id": "dlpage"})
 	#print(len(dlpage.dl))
-
 
 	titles = []
 	for x in soup.find_all("div", {"class": "list-title"}):
